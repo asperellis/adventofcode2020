@@ -2,6 +2,19 @@ const readInput = require('./utils/readInput');
 
 readInput(4, data => {
   // passport constants
+  const EYE_COLORS = {
+    'amb': 'amb',
+    'blu': 'blu',
+    'brn': 'brn',
+    'gry': 'gry',
+    'grn': 'grn',
+    'hzl': 'hzl',
+    'oth': 'oth'
+  };
+  const MEASUREMENT_UNITS = {
+    'cm': 'cm',
+    'in': 'in'
+  };
   const PASSPORT_ENTRIES = {
     'byr': 'byr',
     'cid': 'cid',
@@ -15,11 +28,6 @@ readInput(4, data => {
   const PASSPORT_ENTRIES_TO_IGNORE = {
     [PASSPORT_ENTRIES.cid]: PASSPORT_ENTRIES.cid
   }
-  const EYE_COLORS = ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'];
-  const MEASUREMENT_UNITS = {
-    'cm': 'cm',
-    'in': 'in'
-  };
 
   // common validation helpers
   const isInRange = (value, min, max) => value >= min && value <= max;
@@ -35,7 +43,7 @@ readInput(4, data => {
   // passport validation
   const PASSPORT_VALIDATORS = {
     byr: byr => isLongEnough(byr, 4) && isInRange(Number(byr), 1920, 2002),
-    ecl: ecl => EYE_COLORS.includes(ecl),
+    ecl: ecl => EYE_COLORS[ecl],
     eyr: eyr => isLongEnough(eyr, 4) && isInRange(Number(eyr), 2020, 2030),
     hcl: hcl => isLongEnough(hcl, 7) && isHex(hcl),
     hgt: (hgt = '') => MEASUREMENT_UNIT_VALIDATORS[MEASUREMENT_UNITS[hgt.slice(-2)]]
