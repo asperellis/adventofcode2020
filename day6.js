@@ -28,9 +28,11 @@ readInput(6, data => {
     return total += allYes;
   };
 
+  const groupAnswers = groups.map(countGroupAnswers);
+
   // PART 1 Solution
-  console.log(groups.map(countGroupAnswers).reduce(countYes, 0));
+  console.log(groupAnswers.reduce(countYes, 0));
 
   // PART 2 Solution
-  console.log(groups.map(countGroupAnswers).reduce(countAllYes, 0));
+  console.log(groupAnswers.reduce(countAllYes, 0));
 });
