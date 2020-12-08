@@ -1,25 +1,21 @@
 const readInput = require('./utils/readInput');
 
 readInput(7, data => {
-  const makeBag = (color, contains) => {
-    return {color, contains};
-  }
-
-  const REGULATIONS = data.trim().split('\n').reduce((arr, regulation) => {
+  const REGULATIONS = data.trim().split('\n').reduce((regulationsArray, regulation) => {
     const [color, canContain] = regulation.split(' bags contain ');
-    const contents = canContain.trim().slice(0, -1).replace(/ bags?/g,'').split(', ');
-    const contains = contents.reduce((map, content) => {
-      let [number, ...color] = content.split(' ');
-      color = color.join(' ');
-      map[color] = number;
+    const contains = canContain.trim().slice(0, -1).replace(/ bags?/g,'').split(', ')
+      .reduce((map, content) => {
+        let [number, ...color] = content.split(' ');
+        color = color.join(' ');
+        map[color] = number;
 
-      return map;
+        return map;
     }, {});
 
-    return [...arr, makeBag(color, contains)];
+    return [...regulationsArray, {color, contains}];
   }, []);
 
-  const howManyBagsCanHold = (bagColor) => {
+  const howManyBagsCanHold = bagColor => {
     let bagsThatCanHoldBagColor = 0;
     const stack = [bagColor];
     const seen = {};
